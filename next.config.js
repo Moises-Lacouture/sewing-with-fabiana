@@ -5,10 +5,14 @@ const securityHeaders = [
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
 };
+
 module.exports = nextConfig;
