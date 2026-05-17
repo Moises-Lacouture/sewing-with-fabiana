@@ -15,6 +15,11 @@ const photos = [
   { src: '/images/alessandra-9.jpg', alt: 'Alessandra top in plaid — back view' },
   { src: '/images/alessandra-10.jpg', alt: 'Alessandra top in rust linen' },
   { src: '/images/alessandra-11.jpg', alt: 'Alessandra dress in blue toile print' },
+  { src: '/images/alessandra-12.jpg', alt: 'Alessandra dress in pink floral print' },
+  { src: '/images/alessandra-13.jpg', alt: 'Alessandra top in blue hydrangea print' },
+  { src: '/images/alessandra-14.jpg', alt: 'Alessandra top in teal gingham' },
+  { src: '/images/alessandra-15.jpg', alt: 'Alessandra top in pink polka dot' },
+  { src: '/images/alessandra-16.jpg', alt: 'Alessandra top in rust linen' },
 ];
 
 export default function PatternsPage() {
