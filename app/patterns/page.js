@@ -3,11 +3,8 @@
 import { useState } from 'react';
 import { checkoutUrls } from '@/lib/data';
 
-const thumbnails = [
-  { bg: '#D8D3CC', label: 'Photo 1' },
-  { bg: '#DDD8D1', label: 'Photo 2' },
-  { bg: '#D5D0C9', label: 'Photo 3' },
-  { bg: '#DAD5CE', label: 'Photo 4' },
+const photos = [
+  { src: '/images/alessandra-1.jpg', alt: 'Alessandra top — front view' },
 ];
 
 export default function PatternsPage() {
@@ -18,35 +15,32 @@ export default function PatternsPage() {
       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-start">
         {/* GALLERY */}
         <div>
-          <div
-            style={{
-              backgroundColor: thumbnails[activeIndex].bg,
-              borderRadius: 12,
-            }}
-            className="aspect-[4/5] flex items-center justify-center mb-4"
-          >
-            <p style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D33', fontSize: 13 }}>
-              Main Pattern Photo
-            </p>
-          </div>
+          <img
+            src={photos[activeIndex].src}
+            alt={photos[activeIndex].alt}
+            style={{ borderRadius: 12 }}
+            className="aspect-[4/5] w-full object-cover mb-4"
+          />
           <div className="grid grid-cols-4 gap-3">
-            {thumbnails.map((thumb, i) => (
+            {photos.map((photo, i) => (
               <button
                 key={i}
                 onClick={() => setActiveIndex(i)}
                 style={{
-                  backgroundColor: thumb.bg,
                   borderRadius: 8,
                   border: activeIndex === i ? '2px solid #6B2C32' : '2px solid transparent',
                   cursor: 'pointer',
                   transition: 'all 0.25s ease',
                   padding: 0,
+                  overflow: 'hidden',
                 }}
-                className="aspect-square flex items-center justify-center hover:opacity-85"
+                className="aspect-square hover:opacity-85"
               >
-                <p style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D33', fontSize: 10 }}>
-                  {thumb.label}
-                </p>
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="w-full h-full object-cover"
+                />
               </button>
             ))}
           </div>
