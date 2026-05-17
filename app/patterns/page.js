@@ -5,6 +5,11 @@ import { checkoutUrls } from '@/lib/data';
 
 const photos = [
   { src: '/images/alessandra-1.jpg', alt: 'Alessandra top — front view' },
+  { src: '/images/alessandra-2.jpg', alt: 'Alessandra top on a hanger' },
+  { src: '/images/alessandra-3.jpg', alt: 'Alessandra top — front detail' },
+  { src: '/images/alessandra-4.jpg', alt: 'Alessandra top — back view' },
+  { src: '/images/alessandra-5.jpg', alt: 'Alessandra top — side view' },
+  { src: '/images/alessandra-6.jpg', alt: 'Alessandra dress in pink' },
 ];
 
 export default function PatternsPage() {
