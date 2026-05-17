@@ -189,7 +189,7 @@ export default function PatternsPage() {
               marginBottom: 28,
             }}
           >
-            $11.99
+            $12.99
           </p>
 
           <div
@@ -240,7 +240,7 @@ export default function PatternsPage() {
             }}
             className="hover:bg-[#6B2C32]"
           >
-            Buy Now — $11.99
+            Buy Now — $12.99
           </a>
 
           <p
