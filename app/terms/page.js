@@ -1,6 +1,10 @@
 import { supportEmail } from '@/lib/data';
 
-export const metadata = { title: 'Terms of Service' };
+export const metadata = {
+  title: 'Terms of Service',
+  description: 'The terms governing purchases and use of patterns from Sewing with Fabiana.',
+  alternates: { canonical: '/terms' },
+};
 
 export default function TermsPage() {
   return (

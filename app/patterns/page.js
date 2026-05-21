@@ -3,6 +3,29 @@
 import { useState, useRef } from 'react';
 import { checkoutUrls } from '@/lib/data';
 
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Alessandra — Dress or Top Sewing Pattern',
+  description:
+    'A 4-in-1 digital PDF sewing pattern. Dress or top, with or without sleeves, featuring a signature keyhole neckline. Includes A4, US Letter, and A0 formats, step-by-step instructions, and a YouTube tutorial.',
+  image: [
+    'https://sewingwithfabiana.com/images/alessandra-1.jpg',
+    'https://sewingwithfabiana.com/images/alessandra-2.jpg',
+    'https://sewingwithfabiana.com/images/alessandra-6.jpg',
+  ],
+  brand: { '@type': 'Brand', name: 'Sewing with Fabiana' },
+  category: 'Sewing Patterns',
+  offers: {
+    '@type': 'Offer',
+    url: 'https://sewingwithfabiana.com/patterns',
+    priceCurrency: 'USD',
+    price: '12.99',
+    availability: 'https://schema.org/InStock',
+    itemCondition: 'https://schema.org/NewCondition',
+  },
+};
+
 const photos = [
   { src: '/images/alessandra-1.jpg', alt: 'Alessandra top — front view' },
   { src: '/images/alessandra-2.jpg', alt: 'Alessandra top on a hanger' },
@@ -86,6 +109,10 @@ export default function PatternsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-14 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+      />
       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-start">
         {/* GALLERY */}
         <div>

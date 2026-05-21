@@ -1,6 +1,13 @@
 import FAQItem from '@/components/FAQItem';
 import { faqs } from '@/lib/data';
 
+export const metadata = {
+  title: 'FAQ',
+  description:
+    'Answers about ordering, payment, printing, sizing, and using Sewing with Fabiana digital PDF sewing patterns.',
+  alternates: { canonical: '/faq' },
+};
+
 export default function FAQPage() {
   return (
     <>

@@ -1,5 +1,12 @@
 import { socialLinks } from '@/lib/data';
 
+export const metadata = {
+  title: 'Tutorials',
+  description:
+    'Step-by-step sewing video tutorials from Sewing with Fabiana. Follow along on YouTube to sew every Rectangle Series pattern with confidence.',
+  alternates: { canonical: '/tutorials' },
+};
+
 export default function TutorialsPage() {
   return (
     <section className="max-w-5xl mx-auto px-6 py-24 text-center">
