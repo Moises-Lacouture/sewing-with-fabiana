@@ -1,6 +1,10 @@
 import { supportEmail } from '@/lib/data';
 
-export const metadata = { title: 'Refund Policy' };
+export const metadata = {
+  title: 'Refund Policy',
+  description: 'Refund terms for digital PDF sewing patterns purchased from Sewing with Fabiana.',
+  alternates: { canonical: '/refund' },
+};
 
 export default function RefundPage() {
   return (

@@ -1,3 +1,10 @@
+export const metadata = {
+  title: 'About',
+  description:
+    'Meet Fabiana — fashion designer and creator of the Rectangle Series. Learn the story behind Sewing with Fabiana and the patterns designed to make you fall in love with sewing.',
+  alternates: { canonical: '/about' },
+};
+
 export default function AboutPage() {
   return (
     <>

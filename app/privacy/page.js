@@ -1,6 +1,10 @@
 import { supportEmail } from '@/lib/data';
 
-export const metadata = { title: 'Privacy Policy' };
+export const metadata = {
+  title: 'Privacy Policy',
+  description: 'How Sewing with Fabiana collects, uses, and protects your personal information.',
+  alternates: { canonical: '/privacy' },
+};
 
 export default function PrivacyPage() {
   return (
