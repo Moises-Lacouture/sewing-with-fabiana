@@ -18,8 +18,8 @@ export const metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: '/' },
   icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png',
+    icon: [{ url: '/favicon.png?v=2', type: 'image/png' }],
+    apple: '/favicon.png?v=2',
   },
   openGraph: {
     title: SITE_NAME,
