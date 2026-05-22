@@ -336,7 +336,6 @@ export default function PatternsPage() {
               >
                 <li>PDF pattern in A4, US Letter, and A0 formats</li>
                 <li>Step-by-step sewing instructions with sketches</li>
-                <li>Comprehensive YouTube tutorial</li>
               </ul>
             </div>
 
