@@ -67,7 +67,7 @@ export default function MeetTheMaker() {
 
               <div style={{ fontFamily: 'var(--pbf-font-body)', fontSize: 15, lineHeight: 1.8, color: 'var(--pbf-ink-66)', display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 520 }}>
                 <p style={{ margin: 0 }}>
-                  Fashion designer and the girl behind the Rectangle Series. Everything starts in my home studio in Miami — rectangles of fabric, a sewing machine, and a camera rolling.
+                  Starting with my very first one: the Alessandra Dress & Top. So happy you're here!
                 </p>
                 <p style={{ margin: 0 }}>So happy you&rsquo;re here.</p>
               </div>
