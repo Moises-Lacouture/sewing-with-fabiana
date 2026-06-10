@@ -4,42 +4,35 @@ import { useState } from 'react';
 
 export default function FAQItem({ q, a, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
-
   return (
-    <div style={{ borderBottom: '1px solid #2D2D2D10' }}>
+    <div style={{ borderBottom: '1px solid var(--pbf-hairline)' }}>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
         style={{
-          width: '100%',
-          padding: '20px 0',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: 16,
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          textAlign: 'left',
+          width: '100%', padding: '24px 0',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16,
+          background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
         }}
       >
-        <span style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D', fontSize: 15, fontWeight: 500, transition: 'color 0.2s ease' }}>
+        <span style={{ fontFamily: 'var(--pbf-font-display)', color: 'var(--pbf-ink-100)', fontSize: 21, fontWeight: 400, lineHeight: 1.3 }}>
           {q}
         </span>
         <span
+          aria-hidden
           style={{
-            color: '#2D2D2D66',
-            fontSize: 18,
-            flexShrink: 0,
-            transition: 'transform 0.3s ease',
+            color: 'var(--pbf-burgundy)', fontSize: 24, flexShrink: 0,
+            fontFamily: 'var(--pbf-font-display)',
+            display: 'inline-block', lineHeight: 1,
+            transition: 'transform 300ms ease',
             transform: open ? 'rotate(45deg)' : 'rotate(0)',
-            display: 'inline-block',
           }}
         >
           +
         </span>
       </button>
       {open && (
-        <p style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D88', fontSize: 14, lineHeight: 1.7, paddingBottom: 20, margin: 0 }}>
+        <p style={{ fontFamily: 'var(--pbf-font-body)', color: 'var(--pbf-ink-66)', fontSize: 15, lineHeight: 1.75, padding: '0 0 24px', margin: 0, maxWidth: 620 }}>
           {a}
         </p>
       )}
