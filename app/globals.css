@@ -1,97 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&family=Italianno&family=Luxurious+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italianno&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --pbf-cream:     #E8E4DF;
-  --pbf-burgundy:  #6B2C32;
-  --pbf-charcoal:  #2D2D2D;
-  --pbf-steel:     #B0BFD0;
-
-  --pbf-cream-100: #DFD9D2;
-  --pbf-cream-200: #DDD8D1;
-  --pbf-cream-300: #DAD5CE;
-  --pbf-cream-400: #D8D3CC;
-  --pbf-cream-500: #D5D0C9;
-  --pbf-cream-600: #D3CEC7;
-
-  --pbf-ink-100: #2D2D2D;
-  --pbf-ink-90:  #2D2D2De6;
-  --pbf-ink-80:  #2D2D2Dcc;
-  --pbf-ink-66:  #2D2D2Da8;
-  --pbf-ink-55:  #2D2D2D8c;
-  --pbf-ink-44:  #2D2D2D70;
-  --pbf-ink-33:  #2D2D2D54;
-  --pbf-ink-28:  #2D2D2D47;
-  --pbf-ink-18:  #2D2D2D2e;
-  --pbf-ink-15:  #2D2D2D26;
-  --pbf-ink-10:  #2D2D2D1a;
-
-  --pbf-cream-88: #E8E4DFe0;
-  --pbf-cream-55: #E8E4DF8c;
-  --pbf-cream-33: #E8E4DF54;
-
-  --pbf-bg:               var(--pbf-cream);
-  --pbf-bg-elevated:      #ffffff66;
-  --pbf-surface-dark:     var(--pbf-charcoal);
-  --pbf-fg:               var(--pbf-ink-100);
-  --pbf-fg-body:          var(--pbf-ink-66);
-  --pbf-fg-muted:         var(--pbf-ink-55);
-  --pbf-fg-on-dark:       var(--pbf-cream);
-  --pbf-accent:           var(--pbf-burgundy);
-  --pbf-accent-soft:      #6B2C3233;
-  --pbf-accent-faint:     #6B2C3266;
-  --pbf-hairline:         var(--pbf-ink-10);
-  --pbf-hairline-strong:  var(--pbf-ink-15);
-  --pbf-photo-scrim:      #2D2D2D44;
-
-  --pbf-font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --pbf-font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --pbf-font-script:  'Italianno', 'Pinyon Script', cursive;
-  --pbf-font-script-title: 'Luxurious Script', 'Playfair Display', serif;
-  --pbf-font-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
-
-  --pbf-tracking-eyebrow: 0.30em;
-  --pbf-tracking-nav:     0.05em;
-  --pbf-tracking-button:  0.10em;
-  --pbf-tracking-cta:     0.15em;
-
-  --pbf-radius-xs: 8px;
-  --pbf-radius-sm: 10px;
-  --pbf-radius-md: 12px;
-  --pbf-radius-lg: 16px;
-  --pbf-radius-pill: 100px;
-
-  --pbf-max-w-prose:  42rem;
-  --pbf-max-w-narrow: 48rem;
-  --pbf-max-w-page:   64rem;
-  --pbf-gutter: 24px;
-
-  --pbf-shadow-tile-hover: 0 18px 32px -16px #2D2D2D2e, 0 6px 12px -8px #2D2D2D1a;
-}
-
 html,
 body {
-  background-color: var(--pbf-bg);
-  color: var(--pbf-fg);
-  font-family: var(--pbf-font-body);
+  background-color: #E8E4DF;
+  color: #2D2D2D;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
-* { box-sizing: border-box; }
-
-/* Page-level display headlines: Luxurious Script with optical stroke. */
-.pbf-script-title {
-  font-family: var(--pbf-font-script-title);
-  letter-spacing: 0;
-  line-height: 1.0;
-  -webkit-text-stroke: 0.7px currentColor;
-}
-.pbf-script-title em,
-.pbf-script-title i {
-  font-style: normal;
+* {
+  box-sizing: border-box;
 }

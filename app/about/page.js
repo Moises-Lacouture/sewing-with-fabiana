@@ -8,68 +8,123 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section style={{ maxWidth: 'var(--pbf-max-w-page)', margin: '0 auto', padding: '72px var(--pbf-gutter) 56px' }}>
-        <h1
-          className="pbf-script-title"
+      {/* HEADER */}
+      <section className="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
+        <p
           style={{
-            color: 'var(--pbf-ink-100)',
-            fontSize: 'clamp(56px, 8vw, 116px)',
-            fontWeight: 400,
-            margin: 0, maxWidth: 900,
+            fontFamily: "'DM Sans', sans-serif",
+            color: '#2D2D2D88',
+            fontSize: 12,
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            fontWeight: 500,
+            marginBottom: 12,
           }}
         >
-          The story <span style={{ color: 'var(--pbf-burgundy)' }}>behind me.</span>
+          About
+        </p>
+        <h1
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            color: '#2D2D2D',
+            fontSize: 38,
+            fontWeight: 500,
+            lineHeight: 1.3,
+          }}
+        >
+          The story behind <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>me</span>
         </h1>
       </section>
 
-      <section style={{ maxWidth: 'var(--pbf-max-w-page)', margin: '0 auto', padding: '0 var(--pbf-gutter) 80px' }}>
-        <div style={{ borderRadius: 'var(--pbf-radius-lg)', overflow: 'hidden', aspectRatio: '16/7' }}>
-          <img src="/images/hero-1.jpg" alt="Fabiana sewing at her workspace" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      {/* HERO IMAGE */}
+      <section className="max-w-5xl mx-auto px-6 pb-20">
+        <div
+          style={{ borderRadius: 16, overflow: 'hidden' }}
+          className="aspect-[16/7]"
+        >
+          <img
+            src="/images/hero-1.jpg"
+            alt="Fabiana sewing at her workspace"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
         </div>
       </section>
 
-      <section style={{ borderTop: '1px solid var(--pbf-hairline)', background: 'var(--pbf-cream)' }}>
-        <div style={{ maxWidth: 'var(--pbf-max-w-page)', margin: '0 auto', padding: '88px var(--pbf-gutter)' }}>
-          <div className="grid grid-cols-1 md:grid-cols-[4fr_7fr]" style={{ gap: 72, alignItems: 'start' }}>
-            <div className="md:sticky" style={{ top: 96 }}>
-              <h2 style={{ fontFamily: 'var(--pbf-font-display)', color: 'var(--pbf-ink-100)', fontSize: 'clamp(36px, 4vw, 52px)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.015em', margin: 0 }}>
-                Hi, I&rsquo;m <span style={{ color: 'var(--pbf-burgundy)', fontStyle: 'italic', fontWeight: 500 }}>Fabiana.</span>
+      {/* STORY */}
+      <section style={{ borderTop: '1px solid #2D2D2D10' }}>
+        <div className="max-w-3xl mx-auto px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
+            <div className="md:col-span-2">
+              <h2
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  color: '#2D2D2D',
+                  fontSize: 26,
+                  fontWeight: 500,
+                  lineHeight: 1.3,
+                }}
+              >
+                Hi, I&apos;m <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>Fabiana</span>
               </h2>
             </div>
-
-            <div style={{ fontFamily: 'var(--pbf-font-body)', color: 'var(--pbf-ink-66)', fontSize: 16.5, lineHeight: 1.85, display: 'flex', flexDirection: 'column', gap: 22, maxWidth: 600 }}>
-              <p style={{ margin: 0 }}>
-                You might know me from my &ldquo;Rectangle Series&rdquo;, where I show you how to make real clothes using just simple rectangles of fabric.
+            <div
+              className="md:col-span-3 space-y-5"
+              style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D88', fontSize: 15, lineHeight: 1.8 }}
+            >
+              <p>
+                Hi! My name is Fabiana, and you might know me from my &ldquo;Rectangle Series&rdquo;, where I show you how to make real clothes using just simple rectangles of fabric.
               </p>
-
-              <blockquote style={{ margin: '12px 0', borderLeft: '2px solid var(--pbf-burgundy)', paddingLeft: 28 }}>
-                <p style={{ fontFamily: 'var(--pbf-font-display)', fontStyle: 'italic', fontSize: 28, lineHeight: 1.3, color: 'var(--pbf-ink-90)', margin: 0, letterSpacing: '-0.005em' }}>
-                  &ldquo;I started sewing one month before fashion school began, and I never looked back.&rdquo;
-                </p>
-              </blockquote>
-
-              <p style={{ margin: 0 }}>
-                I&rsquo;m a fashion designer. And I almost wasn&rsquo;t. I was about to start business school (even with a scholarship), when I made the decision to follow what I actually wanted: design, like my mom.
+              <p>
+                But here&apos;s a little more about me.
               </p>
-              <p style={{ margin: 0 }}>
-                I truly believe sewing can be joyful, creative, and way easier than people think — and I hope this little corner of the internet makes you feel that way too.
+              <p>
+                I&apos;m a fashion designer. And I almost wasn&apos;t. I was about to start business school (even with a scholarship), when I made the decision to follow what I actually wanted: design, like my mom. I started sewing one month before fashion school began, and I never looked back.
               </p>
-
-              <p style={{ fontFamily: 'var(--pbf-font-script)', color: 'var(--pbf-burgundy)', fontSize: 48, lineHeight: 1, margin: '12px 0 0' }}>
-                With love, Fabiana <span style={{ fontFamily: 'var(--pbf-font-body)', fontSize: 20 }}>🤍</span>
+              <p>
+                After years studying and working in the industry, I know patternmaking, design, and conceptualization from a professional standpoint. I&apos;m not just someone who loves to sew, this is my craft. This is what I have been doing everyday for the past 7 years.
+              </p>
+              <p>
+                I started sharing my ideas online with the lowest expectations possible (didn&apos;t want to jinx it, lol), and now it feels completely surreal to say that in less than a year, we&apos;re almost at 60k. I still can&apos;t believe it sometimes.
+              </p>
+              <p>
+                What fills my heart the most is when someone tags me wearing something they made with my patterns. Every. Single. Time. Knowing that someone made something I created, put it on, and loved it? That&apos;s everything to me.
+              </p>
+              <p>
+                I truly believe sewing can be joyful, creative, and way easier than people think, and I hope this little corner of the internet makes you feel that way too.
+              </p>
+              <p>
+                If you read all of this, thank you, from the bottom of my heart. You are such a big part of this journey.
+              </p>
+              <p style={{ color: '#2D2D2D' }}>
+                With love, Fabiana 🤍
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section style={{ maxWidth: 'var(--pbf-max-w-page)', margin: '0 auto', padding: '88px var(--pbf-gutter) 96px' }}>
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 16 }}>
-          <div style={{ borderRadius: 'var(--pbf-radius-md)', overflow: 'hidden', aspectRatio: '4/5' }}>
-            <img src="/images/about-1.jpg" alt="Fabric store with rolls of colorful fabric" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      {/* PHOTOS */}
+      <section className="max-w-5xl mx-auto px-6 pb-20">
+        <div className="grid grid-cols-2 gap-4">
+          <div
+            style={{ borderRadius: 12, overflow: 'hidden' }}
+            className="aspect-[4/5]"
+          >
+            <img
+              src="/images/about-1.jpg"
+              alt="Fabric store with rolls of colorful fabric"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
           </div>
-          <div style={{ borderRadius: 'var(--pbf-radius-md)', overflow: 'hidden', aspectRatio: '4/5' }}>
-            <img src="/images/about-2.jpg" alt="Fabiana draping fabric on a dress form" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <div
+            style={{ borderRadius: 12, overflow: 'hidden' }}
+            className="aspect-[4/5]"
+          >
+            <img
+              src="/images/about-2.jpg"
+              alt="Fabiana draping fabric on a dress form"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
           </div>
         </div>
       </section>
