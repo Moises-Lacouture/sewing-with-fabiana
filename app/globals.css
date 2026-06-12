@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italianno&family=Luxurious+Script&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,4 +14,19 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Page-level display titles — Luxurious Script with optical stroke.
+   Uses !important so it overrides the inline fontFamily on existing H1s. */
+.pbf-script-title {
+  font-family: 'Luxurious Script', 'Playfair Display', serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.0 !important;
+  -webkit-text-stroke: 0.7px currentColor;
+}
+.pbf-script-title em,
+.pbf-script-title i,
+.pbf-script-title span {
+  font-style: normal;
 }

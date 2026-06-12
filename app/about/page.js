@@ -24,15 +24,16 @@ export default function AboutPage() {
           About
         </p>
         <h1
+          className="pbf-script-title"
           style={{
             fontFamily: "'Playfair Display', serif",
             color: '#2D2D2D',
-            fontSize: 38,
+            fontSize: 64,
             fontWeight: 500,
             lineHeight: 1.3,
           }}
         >
-          The story behind <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>me</span>
+          The story behind <span style={{ color: '#6B2C32' }}>me</span>
         </h1>
       </section>
 

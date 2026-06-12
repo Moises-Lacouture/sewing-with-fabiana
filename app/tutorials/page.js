@@ -11,7 +11,7 @@ export default function TutorialsPage() {
   return (
     <section className="max-w-5xl mx-auto px-6 py-24 text-center">
       <p style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D88', fontSize: 12, letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 500, marginBottom: 12 }}>Learn</p>
-      <h1 style={{ fontFamily: "'Playfair Display', serif", color: '#2D2D2D', fontSize: 38, fontWeight: 500, marginBottom: 20 }}>Tutorials</h1>
+      <h1 className="pbf-script-title" style={{ fontFamily: "'Playfair Display', serif", color: '#2D2D2D', fontSize: 72, fontWeight: 500, marginBottom: 20 }}>Tutorials</h1>
       <p style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D66', fontSize: 15, maxWidth: 400, margin: '0 auto', lineHeight: 1.7 }}>
         Video tutorials for each pattern will be available here. In the meantime, visit our YouTube channel.
       </p>
