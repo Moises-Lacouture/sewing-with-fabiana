@@ -26,16 +26,17 @@ export default function FAQPage() {
           Help
         </p>
         <h1
+          className="pbf-script-title"
           style={{
             fontFamily: "'Playfair Display', serif",
             color: '#2D2D2D',
-            fontSize: 38,
+            fontSize: 64,
             fontWeight: 500,
             lineHeight: 1.3,
             marginBottom: 14,
           }}
         >
-          Frequently asked <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>questions</span>
+          Frequently asked <span style={{ color: '#6B2C32' }}>questions</span>
         </h1>
         <p
           style={{

@@ -50,15 +50,16 @@ export default function HeroSlider() {
       <div style={{ position: 'absolute', inset: 0, backgroundColor: '#2D2D2D44' }} />
       <div className="relative max-w-5xl mx-auto px-6 py-32 text-center">
         <h1
+          className="pbf-script-title"
           style={{
             fontFamily: "'Playfair Display', serif",
             color: '#E8E4DF',
-            fontSize: 52,
+            fontSize: 80,
             fontWeight: 500,
             lineHeight: 1.25,
           }}
         >
-          Patterns by <span style={{ fontStyle: 'italic' }}>Fabiana</span>
+          Patterns by Fabiana
         </h1>
       </div>
     </section>

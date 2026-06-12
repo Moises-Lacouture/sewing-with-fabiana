@@ -186,10 +186,11 @@ export default function PatternsPage() {
             Digital PDF Pattern · 4-in-1
           </p>
           <h1
+            className="pbf-script-title"
             style={{
               fontFamily: "'Playfair Display', serif",
               color: '#2D2D2D',
-              fontSize: 38,
+              fontSize: 72,
               fontWeight: 500,
               marginBottom: 8,
               lineHeight: 1.25,
