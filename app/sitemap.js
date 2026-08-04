@@ -1,3 +1,5 @@
+import { availablePatterns } from '@/lib/data';
+
 const SITE_URL = 'https://sewingwithfabiana.com';
 
 export const dynamic = 'force-static';
@@ -7,6 +9,7 @@ export default function sitemap() {
   const routes = [
     { path: '/', priority: 1.0, changeFrequency: 'weekly' },
     { path: '/patterns', priority: 0.9, changeFrequency: 'weekly' },
+    ...availablePatterns.map((p) => ({ path: `/patterns/${p.slug}`, priority: 0.9, changeFrequency: 'weekly' })),
     { path: '/about', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/tutorials', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/faq', priority: 0.5, changeFrequency: 'monthly' },
