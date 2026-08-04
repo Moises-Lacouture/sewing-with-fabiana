@@ -82,7 +82,7 @@ function ComingSoonCard({ pattern, tint }) {
             userSelect: 'none',
           }}
         >
-          {pattern.name.charAt(0)}
+          {pattern.mark || pattern.name.charAt(0)}
         </span>
       </div>
       <p style={{ ...eyebrowStyle, color: '#6B2C32' }}>{pattern.teaser || 'Coming soon'}</p>
