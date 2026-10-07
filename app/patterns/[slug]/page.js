@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductGallery from '@/components/ProductGallery';
-import { availablePatterns, getPatternBySlug } from '@/lib/data';
+import { patterns, getPatternBySlug } from '@/lib/data';
 
 const SITE_URL = 'https://sewingwithfabiana.com';
 
 export function generateStaticParams() {
-  return availablePatterns.map((p) => ({ slug: p.slug }));
+  return patterns.map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }) {

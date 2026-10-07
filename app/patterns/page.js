@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { patterns, cardBgs } from '@/lib/data';
+import { patterns } from '@/lib/data';
 
 export const metadata = {
   title: 'Patterns',
@@ -39,7 +39,7 @@ const subtitleStyle = {
   marginBottom: 10,
 };
 
-function AvailableCard({ pattern }) {
+function PatternCard({ pattern }) {
   return (
     <Link
       href={`/patterns/${pattern.slug}`}
@@ -59,36 +59,6 @@ function AvailableCard({ pattern }) {
         {pattern.priceLabel}
       </p>
     </Link>
-  );
-}
-
-// Quieter than a buyable card on purpose — it announces without competing.
-// No image exists yet, so the tile is a brand tint carrying the initial.
-function ComingSoonCard({ pattern, tint }) {
-  return (
-    <div>
-      <div
-        style={{ borderRadius: 12, overflow: 'hidden', backgroundColor: tint }}
-        className="aspect-[4/5] mb-4 flex items-center justify-center"
-      >
-        <span
-          aria-hidden="true"
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: 'italic',
-            fontSize: 96,
-            lineHeight: 1,
-            color: '#2D2D2D1f',
-            userSelect: 'none',
-          }}
-        >
-          {pattern.mark || pattern.name.charAt(0)}
-        </span>
-      </div>
-      <p style={{ ...eyebrowStyle, color: '#6B2C32' }}>{pattern.teaser || 'Coming soon'}</p>
-      <h2 style={{ ...nameStyle, color: '#2D2D2D99' }}>{pattern.name}</h2>
-      <p style={{ ...subtitleStyle, color: '#2D2D2D66' }}>{pattern.subtitle}</p>
-    </div>
   );
 }
 
@@ -137,13 +107,9 @@ export default function PatternsCatalogPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {patterns.map((pattern, i) =>
-          pattern.status === 'coming-soon' ? (
-            <ComingSoonCard key={pattern.slug} pattern={pattern} tint={cardBgs[i % cardBgs.length]} />
-          ) : (
-            <AvailableCard key={pattern.slug} pattern={pattern} />
-          )
-        )}
+        {patterns.map((pattern) => (
+          <PatternCard key={pattern.slug} pattern={pattern} />
+        ))}
       </div>
     </div>
   );
