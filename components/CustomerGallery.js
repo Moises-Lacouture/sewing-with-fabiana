@@ -76,45 +76,18 @@ export default function CustomerGallery({ photos, patternName }) {
   return (
     <section style={{ borderTop: '1px solid #2D2D2D15', marginTop: 64, paddingTop: 56 }}>
       <div className="flex items-end justify-between gap-6 mb-8">
-        <div>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              color: '#2D2D2D88',
-              fontSize: 11,
-              letterSpacing: '0.3em',
-              textTransform: 'uppercase',
-              fontWeight: 500,
-              marginBottom: 10,
-            }}
-          >
-            Made by you
-          </p>
-          <h2
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              color: '#2D2D2D',
-              fontSize: 28,
-              fontWeight: 500,
-              lineHeight: 1.25,
-              margin: 0,
-            }}
-          >
-            Sewn by the <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>community</span>
-          </h2>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              color: '#2D2D2D66',
-              fontSize: 14,
-              lineHeight: 1.7,
-              margin: '10px 0 0',
-              maxWidth: 440,
-            }}
-          >
-            Real {patternName} makes from people who sewed it. Tag @sewingwithfabiana to be featured.
-          </p>
-        </div>
+        <h2
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            color: '#2D2D2D',
+            fontSize: 28,
+            fontWeight: 500,
+            lineHeight: 1.25,
+            margin: 0,
+          }}
+        >
+          {patternName} <span style={{ color: '#6B2C32', fontStyle: 'italic' }}>by you</span>
+        </h2>
 
         {/* Arrows are a desktop affordance; touch devices just swipe the track. */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
@@ -127,50 +100,63 @@ export default function CustomerGallery({ photos, patternName }) {
         ref={trackRef}
         onScroll={sync}
         role="region"
-        aria-label={`${patternName} photos from the community`}
+        aria-label={`${patternName} photos from makers`}
         tabIndex={0}
         className="pbf-scroll-x flex overflow-x-auto"
         style={{ gap: GAP, scrollSnapType: 'x mandatory', paddingBottom: 4 }}
       >
-        {photos.map((photo) => (
-          <a
-            key={photo.image}
-            href={instagramUrl(photo.handle)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group shrink-0"
-            style={{ scrollSnapAlign: 'start', textDecoration: 'none' }}
-          >
-            <div
-              className="w-[150px] sm:w-[220px] group-hover:shadow-lg group-hover:-translate-y-1"
-              style={{
-                aspectRatio: '3/4',
-                borderRadius: 10,
-                overflow: 'hidden',
-                marginBottom: 10,
-                transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease',
-              }}
+        {photos.map((photo) => {
+          // A handle is optional — without one the tile is a plain photo
+          // rather than a link to a profile that may not exist.
+          const Tile = photo.handle ? 'a' : 'div';
+          const linkProps = photo.handle
+            ? {
+                href: instagramUrl(photo.handle),
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              }
+            : {};
+
+          return (
+            <Tile
+              key={photo.image}
+              {...linkProps}
+              className="group shrink-0"
+              style={{ scrollSnapAlign: 'start', textDecoration: 'none' }}
             >
-              <img
-                src={photo.image}
-                alt={`${photo.handle} wearing the ${patternName} pattern`}
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                color: '#6B2C32',
-                fontSize: 13,
-                fontWeight: 500,
-                margin: 0,
-              }}
-            >
-              {photo.handle}
-            </p>
-          </a>
-        ))}
+              <div
+                className="w-[150px] sm:w-[220px] group-hover:shadow-lg group-hover:-translate-y-1"
+                style={{
+                  aspectRatio: '3/4',
+                  borderRadius: 10,
+                  overflow: 'hidden',
+                  marginBottom: photo.handle ? 10 : 0,
+                  transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease',
+                }}
+              >
+                <img
+                  src={photo.image}
+                  alt={photo.alt || `${patternName} sewn by the community`}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {photo.handle && (
+                <p
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    color: '#6B2C32',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    margin: 0,
+                  }}
+                >
+                  {photo.handle}
+                </p>
+              )}
+            </Tile>
+          );
+        })}
       </div>
     </section>
   );
