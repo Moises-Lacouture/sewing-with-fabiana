@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PriceDisplay from '@/components/PriceDisplay';
 import { patterns } from '@/lib/data';
 
 export const metadata = {
@@ -55,9 +56,7 @@ function PatternCard({ pattern }) {
       <p style={{ ...eyebrowStyle, color: '#2D2D2D88' }}>{pattern.category}</p>
       <h2 style={{ ...nameStyle, color: '#2D2D2D' }}>{pattern.name}</h2>
       <p style={{ ...subtitleStyle, color: '#2D2D2D66' }}>{pattern.subtitle}</p>
-      <p style={{ fontFamily: "'Playfair Display', serif", color: '#6B2C32', fontSize: 18, fontWeight: 500 }}>
-        {pattern.priceLabel}
-      </p>
+      <PriceDisplay pattern={pattern} />
     </Link>
   );
 }

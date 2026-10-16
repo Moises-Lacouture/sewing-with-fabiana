@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductGallery from '@/components/ProductGallery';
 import CustomerGallery from '@/components/CustomerGallery';
+import PriceDisplay from '@/components/PriceDisplay';
 import { patterns, getPatternBySlug } from '@/lib/data';
 
 const SITE_URL = 'https://sewingwithfabiana.com';
@@ -81,7 +82,9 @@ export default function PatternProductPage({ params }) {
       '@type': 'Offer',
       url: `${SITE_URL}/patterns/${pattern.slug}`,
       priceCurrency: pattern.priceCurrency,
-      price: pattern.priceValue,
+      // Google must see the price a buyer actually pays, so a sale overrides
+      // the regular price here too.
+      price: pattern.sale ? pattern.sale.salePriceValue : pattern.priceValue,
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
     },
@@ -152,17 +155,9 @@ export default function PatternProductPage({ params }) {
           >
             {pattern.subtitle}
           </p>
-          <p
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              color: '#2D2D2D',
-              fontSize: 26,
-              fontWeight: 500,
-              marginBottom: 28,
-            }}
-          >
-            {pattern.priceLabel}
-          </p>
+          <div style={{ marginBottom: 28 }}>
+            <PriceDisplay pattern={pattern} size="lg" />
+          </div>
 
           <div
             style={{
@@ -204,7 +199,7 @@ export default function PatternProductPage({ params }) {
             }}
             className="hover:bg-[#6B2C32]"
           >
-            Buy Now — {pattern.priceLabel}
+            Buy Now — {pattern.sale ? pattern.sale.salePriceLabel : pattern.priceLabel}
           </a>
 
           <p
