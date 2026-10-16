@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductGallery from '@/components/ProductGallery';
+import CustomerGallery from '@/components/CustomerGallery';
 import { patterns, getPatternBySlug } from '@/lib/data';
 
 const SITE_URL = 'https://sewingwithfabiana.com';
@@ -252,6 +253,8 @@ export default function PatternProductPage({ params }) {
           </div>
         </div>
       </div>
+
+      <CustomerGallery photos={pattern.madeByYou} patternName={pattern.name} />
     </div>
   );
 }

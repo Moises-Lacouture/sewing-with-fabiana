@@ -30,3 +30,20 @@ body {
 .pbf-script-title span {
   font-style: normal;
 }
+
+/* Horizontal photo strip — the arrows and the partly-visible next card are the
+   affordance, so the scrollbar itself is hidden. Keyboard and touch scrolling
+   still work. */
+.pbf-scroll-x {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.pbf-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pbf-scroll-x {
+    scroll-behavior: auto;
+  }
+}
