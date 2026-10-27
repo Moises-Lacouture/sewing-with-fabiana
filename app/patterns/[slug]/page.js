@@ -249,7 +249,7 @@ export default function PatternProductPage({ params }) {
         </div>
       </div>
 
-      <CustomerGallery photos={pattern.madeByYou} patternName={pattern.name} />
+      <CustomerGallery items={pattern.madeByYou} patternName={pattern.name} />
     </div>
   );
 }
