@@ -2,15 +2,62 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// Vertical photos, scrolled horizontally. One card width is used both for the
-// track sizing and for how far an arrow click travels, so a click always lands
-// a card flush against the left edge rather than mid-photo.
+// Vertical photos and clips, scrolled horizontally. One card width is used both
+// for the track sizing and for how far an arrow click travels, so a click always
+// lands a card flush against the left edge rather than mid-photo.
 const CARD_W = 220;
 const CARD_W_SM = 150;
 const GAP = 16;
 
 function instagramUrl(handle) {
   return `https://instagram.com/${handle.replace(/^@/, '')}`;
+}
+
+// A muted clip that plays only while it is on screen, and not at all for
+// viewers who have asked for reduced motion — they get controls instead.
+function ClipTile({ item, patternName }) {
+  const ref = useRef(null);
+  const [manual, setManual] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      el.pause();
+      setManual(true);
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      el.play?.().catch(() => {});
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play?.().catch(() => {});
+        else el.pause?.();
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src={item.video}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={manual}
+      aria-label={item.alt || `${patternName} sewn by the community`}
+      className="w-full h-full object-cover"
+    />
+  );
 }
 
 function ScrollArrow({ direction, onClick, disabled }) {
@@ -44,7 +91,7 @@ function ScrollArrow({ direction, onClick, disabled }) {
   );
 }
 
-export default function CustomerGallery({ photos, patternName }) {
+export default function CustomerGallery({ items, patternName }) {
   const trackRef = useRef(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -71,7 +118,7 @@ export default function CustomerGallery({ photos, patternName }) {
     el.scrollBy({ left: dir * step, behavior: 'smooth' });
   };
 
-  if (!photos || photos.length === 0) return null;
+  if (!items || items.length === 0) return null;
 
   return (
     <section style={{ borderTop: '1px solid #2D2D2D15', marginTop: 64, paddingTop: 56 }}>
@@ -100,18 +147,18 @@ export default function CustomerGallery({ photos, patternName }) {
         ref={trackRef}
         onScroll={sync}
         role="region"
-        aria-label={`${patternName} photos from makers`}
+        aria-label={`${patternName} photos and clips from makers`}
         tabIndex={0}
         className="pbf-scroll-x flex overflow-x-auto"
         style={{ gap: GAP, scrollSnapType: 'x mandatory', paddingBottom: 4 }}
       >
-        {photos.map((photo) => {
+        {items.map((item) => {
           // A handle is optional — without one the tile is a plain photo
           // rather than a link to a profile that may not exist.
-          const Tile = photo.handle ? 'a' : 'div';
-          const linkProps = photo.handle
+          const Tile = item.handle ? 'a' : 'div';
+          const linkProps = item.handle
             ? {
-                href: instagramUrl(photo.handle),
+                href: instagramUrl(item.handle),
                 target: '_blank',
                 rel: 'noopener noreferrer',
               }
@@ -119,7 +166,7 @@ export default function CustomerGallery({ photos, patternName }) {
 
           return (
             <Tile
-              key={photo.image}
+              key={item.video || item.image}
               {...linkProps}
               className="group shrink-0"
               style={{ scrollSnapAlign: 'start', textDecoration: 'none' }}
@@ -130,18 +177,23 @@ export default function CustomerGallery({ photos, patternName }) {
                   aspectRatio: '3/4',
                   borderRadius: 10,
                   overflow: 'hidden',
-                  marginBottom: photo.handle ? 10 : 0,
+                  marginBottom: item.handle ? 10 : 0,
+                  backgroundColor: '#2D2D2D0d',
                   transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease',
                 }}
               >
-                <img
-                  src={photo.image}
-                  alt={photo.alt || `${patternName} sewn by the community`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
+                {item.video ? (
+                  <ClipTile item={item} patternName={patternName} />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.alt || `${patternName} sewn by the community`}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
-              {photo.handle && (
+              {item.handle && (
                 <p
                   style={{
                     fontFamily: "'DM Sans', sans-serif",
@@ -151,7 +203,7 @@ export default function CustomerGallery({ photos, patternName }) {
                     margin: 0,
                   }}
                 >
-                  {photo.handle}
+                  {item.handle}
                 </p>
               )}
             </Tile>
