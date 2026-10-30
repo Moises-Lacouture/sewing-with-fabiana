@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { socialLinks, supportEmail } from '@/lib/data';
+import { socialLinks, supportEmail, publishedPatterns } from '@/lib/data';
 
 export default function Footer() {
   return (
@@ -23,7 +23,10 @@ export default function Footer() {
               <h5 style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D', fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 14 }}>Shop</h5>
               <div className="flex flex-col gap-2">
                 <Link href="/patterns" style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D55', fontSize: 13, textDecoration: 'none' }} className="hover:text-gray-700 transition-colors">All Patterns</Link>
-                <Link href="/patterns/alessandra" style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D55', fontSize: 13, textDecoration: 'none' }} className="hover:text-gray-700 transition-colors">Alessandra</Link>
+                {/* Generated, so an unlaunched pattern can never be linked here. */}
+                {publishedPatterns.map((pattern) => (
+                  <Link key={pattern.slug} href={`/patterns/${pattern.slug}`} style={{ fontFamily: "'DM Sans', sans-serif", color: '#2D2D2D55', fontSize: 13, textDecoration: 'none' }} className="hover:text-gray-700 transition-colors">{pattern.name}</Link>
+                ))}
               </div>
             </div>
             <div>
