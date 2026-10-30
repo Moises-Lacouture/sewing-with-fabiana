@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PriceDisplay from '@/components/PriceDisplay';
-import { patterns } from '@/lib/data';
+import { publishedPatterns } from '@/lib/data';
 
 export const metadata = {
   title: 'Patterns',
@@ -106,7 +106,7 @@ export default function PatternsCatalogPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {patterns.map((pattern) => (
+        {publishedPatterns.map((pattern) => (
           <PatternCard key={pattern.slug} pattern={pattern} />
         ))}
       </div>

@@ -7,6 +7,8 @@ import { patterns, getPatternBySlug } from '@/lib/data';
 
 const SITE_URL = 'https://sewingwithfabiana.com';
 
+// Drafts are built too, so an unlaunched pattern can be reviewed at its real
+// URL. They are kept out of the catalog and sitemap, and marked noindex below.
 export function generateStaticParams() {
   return patterns.map((p) => ({ slug: p.slug }));
 }
@@ -20,6 +22,9 @@ export function generateMetadata({ params }) {
     title: pattern.seo.title,
     description: pattern.seo.description,
     alternates: { canonical: `/patterns/${pattern.slug}` },
+    // Tell search engines to skip a page that is not launched yet, and keep it
+    // out of link previews so a shared URL does not look like a live product.
+    robots: pattern.draft ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: pattern.seo.title,
       description: pattern.seo.description,
@@ -34,6 +39,32 @@ export function generateMetadata({ params }) {
       images: [pattern.seo.ogImage],
     },
   };
+}
+
+// Only ever rendered on an unlaunched page, so a draft can't be mistaken for
+// something customers can already see.
+function DraftBanner({ name }) {
+  return (
+    <div
+      style={{
+        backgroundColor: '#6B2C32',
+        color: '#E8E4DF',
+        borderRadius: 10,
+        padding: '12px 18px',
+        marginBottom: 28,
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: 13,
+        lineHeight: 1.6,
+      }}
+    >
+      <strong style={{ letterSpacing: '0.12em', textTransform: 'uppercase', fontSize: 11, fontWeight: 600 }}>
+        Draft
+      </strong>
+      <span style={{ marginLeft: 10, opacity: 0.9 }}>
+        {name} is not launched. It is hidden from the catalog and from search, but anyone with this link can open it.
+      </span>
+    </div>
+  );
 }
 
 function InfoBlock({ title, items, copy }) {
@@ -113,6 +144,8 @@ export default function PatternProductPage({ params }) {
       >
         ← All patterns
       </Link>
+
+      {pattern.draft && <DraftBanner name={pattern.name} />}
 
       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-start">
         <ProductGallery photos={pattern.photos} />
