@@ -39,16 +39,18 @@ function Arrow({ direction, onClick, disabled }) {
   );
 }
 
+// The array order is the display order — filenames have no say in it.
 export default function ProductGallery({ photos }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef(null);
 
-  const lastIndex = photos.length - 1;
+  const list = photos || [];
+  const lastIndex = list.length - 1;
   const windowStart = Math.min(
     Math.max(0, activeIndex - 1),
-    Math.max(0, photos.length - THUMBS_VISIBLE)
+    Math.max(0, list.length - THUMBS_VISIBLE)
   );
-  const visibleThumbs = photos.slice(windowStart, windowStart + THUMBS_VISIBLE);
+  const visibleThumbs = list.slice(windowStart, windowStart + THUMBS_VISIBLE);
 
   const goPrev = () => setActiveIndex((i) => Math.max(0, i - 1));
   const goNext = () => setActiveIndex((i) => Math.min(lastIndex, i + 1));
@@ -64,6 +66,30 @@ export default function ProductGallery({ photos }) {
     touchStartX.current = null;
   };
 
+  // A draft can exist before its photos do; show the frame rather than crash.
+  if (list.length === 0) {
+    return (
+      <div
+        className="aspect-[4/5] w-full flex items-center justify-center"
+        style={{ borderRadius: 12, backgroundColor: '#2D2D2D0d' }}
+      >
+        <p
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            color: '#2D2D2D66',
+            fontSize: 12,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Photos not added yet
+        </p>
+      </div>
+    );
+  }
+
+  const active = list[activeIndex] || list[0];
+
   return (
     <div>
       <div
@@ -73,8 +99,8 @@ export default function ProductGallery({ photos }) {
         onTouchEnd={onTouchEnd}
       >
         <img
-          src={photos[activeIndex].src}
-          alt={photos[activeIndex].alt}
+          src={active.src}
+          alt={active.alt}
           style={{ borderRadius: 12 }}
           className="aspect-[4/5] w-full object-cover"
         />
@@ -90,7 +116,7 @@ export default function ProductGallery({ photos }) {
           marginBottom: 12,
         }}
       >
-        {activeIndex + 1} / {photos.length}
+        {activeIndex + 1} / {list.length}
       </p>
       <div className="grid grid-cols-4 gap-3">
         {visibleThumbs.map((photo, i) => {
