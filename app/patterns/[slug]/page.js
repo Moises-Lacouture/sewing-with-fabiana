@@ -43,7 +43,7 @@ export function generateMetadata({ params }) {
 
 // Only ever rendered on an unlaunched page, so a draft can't be mistaken for
 // something customers can already see.
-function DraftBanner({ name }) {
+function DraftBanner({ name, missing }) {
   return (
     <div
       style={{
@@ -62,6 +62,9 @@ function DraftBanner({ name }) {
       </strong>
       <span style={{ marginLeft: 10, opacity: 0.9 }}>
         {name} is not launched. It is hidden from the catalog and from search, but anyone with this link can open it.
+        {missing.length > 0 && (
+          <> Still needed: <strong style={{ fontWeight: 600 }}>{missing.join(', ')}</strong>.</>
+        )}
       </span>
     </div>
   );
@@ -101,33 +104,50 @@ export default function PatternProductPage({ params }) {
   const pattern = getPatternBySlug(params.slug);
   if (!pattern) notFound();
 
-  const productLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: `${pattern.name} — ${pattern.subtitle}`,
-    description: pattern.seo.description,
-    image: pattern.photos.slice(0, 3).map((p) => `${SITE_URL}${p.src}`),
-    brand: { '@type': 'Brand', name: 'Sewing with Fabiana' },
-    category: 'Sewing Patterns',
-    offers: {
-      '@type': 'Offer',
-      url: `${SITE_URL}/patterns/${pattern.slug}`,
-      priceCurrency: pattern.priceCurrency,
-      // Google must see the price a buyer actually pays, so a sale overrides
-      // the regular price here too.
-      price: pattern.sale ? pattern.sale.salePriceValue : pattern.priceValue,
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-    },
-  };
+  const photos = pattern.photos || [];
+  const priceLabel = pattern.sale ? pattern.sale.salePriceLabel : pattern.priceLabel;
+  const sellable = Boolean(pattern.priceValue && pattern.checkoutUrl);
+
+  // What a draft still needs before it can launch, shown in its banner.
+  const missing = [
+    photos.length === 0 && 'photos',
+    !pattern.priceValue && 'price',
+    !pattern.checkoutUrl && 'checkout link',
+  ].filter(Boolean);
+
+  // Only claim a price to Google once there is a real one behind a real
+  // checkout; a half-filled draft advertising nothing would be worse than
+  // no schema at all.
+  const productLd = sellable
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: `${pattern.name} — ${pattern.subtitle}`,
+        description: pattern.seo.description,
+        image: photos.slice(0, 3).map((p) => `${SITE_URL}${p.src}`),
+        brand: { '@type': 'Brand', name: 'Sewing with Fabiana' },
+        category: 'Sewing Patterns',
+        offers: {
+          '@type': 'Offer',
+          url: `${SITE_URL}/patterns/${pattern.slug}`,
+          priceCurrency: pattern.priceCurrency,
+          // Google must see the price a buyer actually pays, so a sale
+          // overrides the regular price here too.
+          price: pattern.sale ? pattern.sale.salePriceValue : pattern.priceValue,
+          availability: 'https://schema.org/InStock',
+          itemCondition: 'https://schema.org/NewCondition',
+        },
+      }
+    : null;
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-14 md:py-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
-      />
-
+      {productLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+        />
+      )}
       <Link
         href="/patterns"
         style={{
@@ -145,10 +165,10 @@ export default function PatternProductPage({ params }) {
         ← All patterns
       </Link>
 
-      {pattern.draft && <DraftBanner name={pattern.name} />}
+      {pattern.draft && <DraftBanner name={pattern.name} missing={missing} />}
 
       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-start">
-        <ProductGallery photos={pattern.photos} />
+        <ProductGallery photos={photos} />
 
         {/* INFO */}
         <div className="pt-2">
@@ -208,58 +228,85 @@ export default function PatternProductPage({ params }) {
             )}
           </div>
 
-          <a
-            href={pattern.checkoutUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              width: '100%',
-              backgroundColor: '#2D2D2D',
-              color: '#E8E4DF',
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 13,
-              fontWeight: 500,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              padding: '18px 32px',
-              borderRadius: 100,
-              border: 'none',
-              marginBottom: 14,
-              textDecoration: 'none',
-              display: 'block',
-              textAlign: 'center',
-              transition: 'all 0.3s ease',
-            }}
-            className="hover:bg-[#6B2C32]"
-          >
-            Buy Now — {pattern.sale ? pattern.sale.salePriceLabel : pattern.priceLabel}
-          </a>
+          {sellable ? (
+            <a
+              href={pattern.checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                width: '100%',
+                backgroundColor: '#2D2D2D',
+                color: '#E8E4DF',
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 13,
+                fontWeight: 500,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                padding: '18px 32px',
+                borderRadius: 100,
+                border: 'none',
+                marginBottom: 14,
+                textDecoration: 'none',
+                display: 'block',
+                textAlign: 'center',
+                transition: 'all 0.3s ease',
+              }}
+              className="hover:bg-[#6B2C32]"
+            >
+              Buy Now — {priceLabel}
+            </a>
+          ) : (
+            // No price or no checkout yet. Showing a dead Buy button would be
+            // worse than showing none, so say plainly what is missing.
+            <div
+              style={{
+                width: '100%',
+                border: '1.5px dashed #2D2D2D33',
+                color: '#2D2D2D66',
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 12,
+                fontWeight: 500,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                padding: '18px 32px',
+                borderRadius: 100,
+                marginBottom: 14,
+                textAlign: 'center',
+              }}
+            >
+              Not on sale yet
+            </div>
+          )}
 
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              color: '#2D2D2D66',
-              fontSize: 12,
-              textAlign: 'center',
-              marginBottom: 36,
-              lineHeight: 1.6,
-            }}
-          >
-            Instant download · Delivered to your email
-          </p>
+          {/* Purchase terms belong with a purchase; on a page with nothing to
+              buy yet they would describe a transaction that can't happen. */}
+          {sellable && (
+            <>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  color: '#2D2D2D66',
+                  fontSize: 12,
+                  textAlign: 'center',
+                  marginBottom: 36,
+                  lineHeight: 1.6,
+                }}
+              >
+                Instant download · Delivered to your email
+              </p>
 
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              color: '#2D2D2D55',
-              fontSize: 11,
-              textAlign: 'center',
-              marginBottom: 12,
-              lineHeight: 1.6,
-            }}
-          >
-            By purchasing, you consent to immediate delivery of this digital product and acknowledge that you lose your right of withdrawal once the download begins.
-          </p>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  color: '#2D2D2D55',
+                  fontSize: 11,
+                  textAlign: 'center',
+                  marginBottom: 12,
+                  lineHeight: 1.6,
+                }}
+              >
+                By purchasing, you consent to immediate delivery of this digital product and acknowledge that you lose your right of withdrawal once the download begins.
+              </p>
 
           <p
             style={{
@@ -273,6 +320,8 @@ export default function PatternProductPage({ params }) {
           >
             All sales final once downloaded · <Link href="/refund" style={{ color: '#6B2C3266', textDecoration: 'underline' }}>Refund Policy</Link> · <Link href="/terms" style={{ color: '#6B2C3266', textDecoration: 'underline' }}>Terms</Link>
           </p>
+            </>
+          )}
 
           <div style={{ borderTop: '1px solid #2D2D2D15', paddingTop: 24 }}>
             <InfoBlock title="What's included" items={pattern.included} />
